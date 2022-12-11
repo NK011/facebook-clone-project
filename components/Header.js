@@ -3,26 +3,28 @@ import React from "react";
 import {
     MagnifyingGlassIcon,
     HomeIcon,
-    FlagIcon,
     PlayCircleIcon,
-    ShoppingCartIcon,
     UserGroupIcon,
     Squares2X2Icon,
     ChatBubbleOvalLeftEllipsisIcon,
     BellIcon,
     ChevronDownIcon,
+    BuildingStorefrontIcon,
+    UsersIcon,
 } from "@heroicons/react/24/solid";
-import pic from "./pan pic.jpg";
+import { signOut, useSession } from "next-auth/react";
 
 function Header() {
+    const { data: session } = useSession();
     return (
-        <div className="flex items-center justify-between p-2">
+        <div className="flex items-center justify-between p-2 bg-slate-50">
             <div className="flex items-center flex-1">
                 <Image
                     src="https://links.papareact.com/5me"
                     height={100}
                     width={100}
                     className="mr-3 h-9 w-9"
+                    alt="fb-logo"
                 />
                 <div className="items-center sm:px-2 lg:px-3 py-1 bg-gray-100 rounded-full hidden lg:flex">
                     <MagnifyingGlassIcon className="sm:h-5 lg:h-7 mr-3 text-gray-600" />
@@ -35,21 +37,25 @@ function Header() {
             </div>
 
             <div className="text-gray-200 flex flex-1 space-x-5 sm:justify-between ">
-                <HomeIcon className="h-7 mr-3 text-gray-600" />
-                <FlagIcon className="h-7 mr-3 text-gray-600" />
-                <PlayCircleIcon className="h-7 mr-3 text-gray-600" />
-                <ShoppingCartIcon className="h-7 mr-3 text-gray-600" />
-                <UserGroupIcon className="h-7 mr-3 text-gray-600" />
+                <HomeIcon className="h-5 lg:h-7 mr-3 text-gray-600" />
+                <UsersIcon className="h-5 lg:h-7 mr-3 text-gray-600" />
+                <PlayCircleIcon className="h-5 lg:h-7 mr-3 text-gray-600" />
+                <BuildingStorefrontIcon className="h-5 lg:h-7 mr-3 text-gray-600" />
+                <UserGroupIcon className="h-5 lg:h-7 mr-3 text-gray-600 rounded-full border-2 border-gray-600" />
             </div>
             <div className="flex items-center flex-1 justify-end space-x-7">
                 <div className="flex items-center space-x-2">
                     <Image
                         className="rounded-full"
-                        src={pic}
+                        src={session?.user?.image}
                         width={40}
                         height={40}
+                        alt="profile-pic"
+                        onClick={signOut}
                     />
-                    <p className="hidden sm:block font-bold">Nitish Kumar</p>
+                    <p className="hidden xl:block font-bold">
+                        {session?.user?.name}
+                    </p>
                 </div>
                 <div className="hidden justify-between lg:flex space-x-4">
                     <Squares2X2Icon className="h-7 text-gray-600" />
