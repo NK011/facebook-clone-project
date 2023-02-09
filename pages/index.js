@@ -1,10 +1,14 @@
+import { unstable_getServerSession } from "next-auth";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Login from "../components/login";
+import { authOptions } from "./api/auth/[...nextauth]";
 
-export default function Home({ data }) {
-    if (data == null) return <Login />;
+export default function Home() {
+    const { data: session } = useSession();
+    console.log(session);
+    if (session == null) return <Login />;
     else
         return (
             <div className="bg-gray-200 h-screen">
@@ -24,8 +28,14 @@ export default function Home({ data }) {
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
-    const data = session;
+    // const session = await unstable_getServerSession(
+    //     context.req,
+    //     context.res,
+    //     authOptions
+    // );
+
+    console.log(session);
     return {
-        props: { data },
+        props: { session: session },
     };
 }

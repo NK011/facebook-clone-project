@@ -15,7 +15,7 @@ function Login() {
             />
             <button
                 className="bg-[#166be7] text-white font-semibold px-3 py-2 rounded-full"
-                onClick={() => signIn()}
+                onClick={signIn}
             >
                 Login with Facebook
             </button>

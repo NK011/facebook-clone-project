@@ -13,6 +13,7 @@ import {
     UsersIcon,
 } from "@heroicons/react/24/solid";
 import { signOut, useSession } from "next-auth/react";
+import image from "./pan pic.jpg";
 
 function Header() {
     const { data: session } = useSession();
